@@ -168,6 +168,10 @@ void GameScene::update()
     {
         m_isReset = false;
         m_isGame = true;
+        m_moveUp = false;
+        m_moveRight = false;
+        m_moveDown = false;
+        m_moveLeft = false;
         for (int i=1;i< Game::M-1;i++)
         {
             for (int j=1;j<Game::N-1;j++)
