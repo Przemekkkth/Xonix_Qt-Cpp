@@ -5,7 +5,6 @@ int Game::TILE_SIZE = 18;
 QSize Game::RESOLUTION = QSize(720, 450);// 40x18 25x18
 const QString Game::PATH_TO_ENEMY_PIXMAP = ":/images/enemy.png";
 const QString Game::PATH_TO_GAMEOVER_PIXMAP = ":/images/gameover.png";
-const QString Game::PATH_TO_TILES_PIXMAP = ":/images/tiles.png";
 
 const QString Game::PATH_TO_HERO_PIXMAP = ":/images/hero.png";
 const QString Game::PATH_TO_TILE_PIXMAP = ":/images/tile.png";

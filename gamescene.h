@@ -21,13 +21,14 @@ private slots:
 private:
     void loadPixmaps();
     Game m_game;
-    QPixmap m_enemyPixmap, m_gameOverPixmap, m_tilesPixmap;
+    QPixmap m_enemyPixmap, m_gameOverPixmap;
     QPixmap m_heroPixmap, m_tilePixmap, m_activeTilePixmap;
 
     int m_enemyCount;
     Enemy m_enemies[10];
 
     bool m_isGame;
+    bool m_isReset;
     int m_x, m_y, m_dx, m_dy;
     float m_timer, m_delay;
     QTimer *m_gameTimer;

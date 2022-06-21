@@ -5,7 +5,7 @@
 #include <QGraphicsPixmapItem>
 
 GameScene::GameScene(QObject *parent)
-    : QGraphicsScene{parent}, m_enemyCount(4), m_isGame(true), m_x(0), m_y(0), m_dx(0), m_dy(0), m_timer(0.0f)
+    : QGraphicsScene{parent}, m_enemyCount(4), m_isGame(true), m_isReset(true), m_x(0), m_y(0), m_dx(0), m_dy(0), m_timer(0.0f)
     ,m_delay(0.07f), m_gameTimer(new QTimer(this)), m_moveUp(false), m_moveRight(false), m_moveDown(false), m_moveLeft(false), m_enemyRotation(0.0f)
 {
     loadPixmaps();
@@ -44,15 +44,6 @@ void GameScene::loadPixmaps()
     else
     {
         qDebug() << "GameOverPixmap is not loaded successfully";
-    }
-
-    if(m_tilesPixmap.load(Game::PATH_TO_TILES_PIXMAP))
-    {
-        qDebug() << "TilesPixmap is loaded successfully";
-    }
-    else
-    {
-        qDebug() << "TilesPixmap is not loaded successfully";
     }
 
     if(m_heroPixmap.load(Game::PATH_TO_HERO_PIXMAP))
@@ -106,6 +97,13 @@ void GameScene::keyPressEvent(QKeyEvent *event)
         m_moveLeft = true;
     }
         break;
+    }
+    if(!event->isAutoRepeat())
+    {
+        if(event->key() == Qt::Key_R)
+        {
+            m_isReset = true;
+        }
     }
     QGraphicsScene::keyPressEvent(event);
 }
@@ -165,10 +163,28 @@ void GameScene::update()
         m_dy = 0;
     }
 
+
+    if(m_isReset == true)
+    {
+        m_isReset = false;
+        m_isGame = true;
+        for (int i=1;i< Game::M-1;i++)
+        {
+            for (int j=1;j<Game::N-1;j++)
+            {
+                Game::grid[i][j]=0;
+            }
+        }
+
+        m_x = 10;
+        m_y = 0;
+    }
     if( !m_isGame )
     {
         return;
     }
+
+
 
     if(m_timer > Game::DELAY)
     {
@@ -248,6 +264,7 @@ void GameScene::update()
 
     //draw
     clear();
+    setBackgroundBrush(QBrush(Qt::black));
     for (int i=0; i < Game::M; i++)
     {
         for (int j = 0; j < Game::N; j++)
@@ -284,5 +301,11 @@ void GameScene::update()
         enemyItem->setTransformOriginPoint(20,20);
         enemyItem->setRotation(m_enemyRotation);
         addItem(enemyItem);
+    }
+
+    if(!m_isGame)
+    {
+        QGraphicsPixmapItem *bgItem = new QGraphicsPixmapItem(m_gameOverPixmap.scaled(Game::RESOLUTION.width(), Game::RESOLUTION.height()));
+        addItem(bgItem);
     }
 }

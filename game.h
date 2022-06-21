@@ -12,7 +12,6 @@ public:
     static QSize RESOLUTION;
     static const QString PATH_TO_ENEMY_PIXMAP;
     static const QString PATH_TO_GAMEOVER_PIXMAP;
-    static const QString PATH_TO_TILES_PIXMAP;
     static const QString PATH_TO_HERO_PIXMAP;
     static const QString PATH_TO_TILE_PIXMAP;
     static const QString PATH_TO_ACTIVE_TILE_PIXMAP;
