@@ -213,7 +213,7 @@ void GameScene::update()
     for (int i=0; i < m_enemyCount; i++)
     {
         if  (Game::grid[m_enemies[i].y/Game::TILE_SIZE][m_enemies[i].x/Game::TILE_SIZE]==2
-             || Game::grid[(m_enemies[i].y + m_enemyPixmap.height()/2)/Game::TILE_SIZE][(m_enemies[i].x + m_enemyPixmap.width()/2)/Game::TILE_SIZE]==1)
+             || Game::grid[(m_enemies[i].y + m_enemyPixmap.height()/2)/Game::TILE_SIZE][(m_enemies[i].x + m_enemyPixmap.width()/2)/Game::TILE_SIZE]==2)
         {
             m_isGame = false;
         }
