@@ -6,7 +6,7 @@
 
 GameScene::GameScene(QObject *parent)
     : QGraphicsScene{parent}, m_enemyCount(4), m_isGame(true), m_x(0), m_y(0), m_dx(0), m_dy(0), m_timer(0.0f)
-    ,m_delay(0.07f), m_gameTimer(new QTimer(this)), m_moveUp(false), m_moveRight(false), m_moveDown(false), m_moveLeft(false)
+    ,m_delay(0.07f), m_gameTimer(new QTimer(this)), m_moveUp(false), m_moveRight(false), m_moveDown(false), m_moveLeft(false), m_enemyRotation(0.0f)
 {
     loadPixmaps();
     setSceneRect(0,0, m_game.RESOLUTION.width(), m_game.RESOLUTION.height());
@@ -138,9 +138,14 @@ void GameScene::update()
         m_dy = 0;
     }
 
+    if( !m_isGame )
+    {
+        return;
+    }
+
     if(m_timer > Game::DELAY)
     {
-
+        m_timer = 0.0f;
         m_x += m_dx;
         m_y += m_dy;
 
@@ -169,7 +174,7 @@ void GameScene::update()
         {
             Game::grid[m_y][m_x]=2;
         }
-        m_timer -= Game::DELAY;
+
     }
     //end timer
     for (int i = 0; i < m_enemyCount; i++)
@@ -207,7 +212,8 @@ void GameScene::update()
 
     for (int i=0; i < m_enemyCount; i++)
     {
-        if  (Game::grid[m_enemies[i].y/Game::TILE_SIZE][m_enemies[i].x/Game::TILE_SIZE]==2)
+        if  (Game::grid[m_enemies[i].y/Game::TILE_SIZE][m_enemies[i].x/Game::TILE_SIZE]==2
+             || Game::grid[(m_enemies[i].y + m_enemyPixmap.height()/2)/Game::TILE_SIZE][(m_enemies[i].x + m_enemyPixmap.width()/2)/Game::TILE_SIZE]==1)
         {
             m_isGame = false;
         }
@@ -242,12 +248,14 @@ void GameScene::update()
     playerItem->setPos(m_x*Game::TILE_SIZE, m_y*Game::TILE_SIZE);
     addItem(playerItem);
 
-    //enemyItem->setRotation(10.0f);
+    m_enemyRotation += 10.0f;
 
     for (int i=0; i < m_enemyCount; i++)
     {
         QGraphicsPixmapItem *enemyItem = new QGraphicsPixmapItem(m_enemyPixmap);
         enemyItem->setPos(m_enemies[i].x, m_enemies[i].y);
+        enemyItem->setTransformOriginPoint(20,20);
+        enemyItem->setRotation(m_enemyRotation);
         addItem(enemyItem);
     }
 }

@@ -31,6 +31,7 @@ private:
     float m_timer, m_delay;
     QTimer *m_gameTimer;
     bool m_moveUp, m_moveRight, m_moveDown, m_moveLeft;
+    float m_enemyRotation;
     // QGraphicsScene interface
 protected:
     virtual void keyPressEvent(QKeyEvent *event) override;
