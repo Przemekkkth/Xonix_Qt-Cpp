@@ -20,6 +20,7 @@ private slots:
     void update();
 private:
     void loadPixmaps();
+    void renderScene();
     Game m_game;
     QPixmap m_enemyPixmap, m_gameOverPixmap;
     QPixmap m_heroPixmap, m_tilePixmap, m_activeTilePixmap;

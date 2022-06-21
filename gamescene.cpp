@@ -3,6 +3,8 @@
 #include <QKeyEvent>
 #include <QTimer>
 #include <QGraphicsPixmapItem>
+#include <QDir>
+#include <QPainter>
 
 GameScene::GameScene(QObject *parent)
     : QGraphicsScene{parent}, m_enemyCount(4), m_isGame(true), m_isReset(true), m_x(0), m_y(0), m_dx(0), m_dy(0), m_timer(0.0f)
@@ -17,9 +19,9 @@ GameScene::GameScene(QObject *parent)
     {
         for (int j = 0; j < Game::N; j++)
         {
-            if (i==0 || j==0 || i== Game::M-1 || j == Game::N-1)
+            if (i == 0 || j == 0 || i == Game::M-1 || j == Game::N-1)
             {
-                Game::grid[i][j]=1;
+                Game::grid[i][j] = 1;
             }
         }
     }
@@ -74,6 +76,19 @@ void GameScene::loadPixmaps()
     }
 }
 
+void GameScene::renderScene()
+{
+    static int index = 0;
+    QString fileName = QDir::currentPath() + QDir::separator() + "screen" + QString::number(index++) + ".png";
+    QRect rect = sceneRect().toAlignedRect();
+    QImage image(rect.size(), QImage::Format_ARGB32);
+    image.fill(Qt::transparent);
+    QPainter painter(&image);
+    render(&painter);
+    image.save(fileName);
+    qDebug() << "saved " << fileName;
+}
+
 void GameScene::keyPressEvent(QKeyEvent *event)
 {
     switch (event->key()) {
@@ -103,6 +118,10 @@ void GameScene::keyPressEvent(QKeyEvent *event)
         if(event->key() == Qt::Key_R)
         {
             m_isReset = true;
+        }
+        else if(event->key() == Qt::Key_Z)
+        {
+            //renderScene();
         }
     }
     QGraphicsScene::keyPressEvent(event);
