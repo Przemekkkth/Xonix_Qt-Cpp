@@ -54,6 +54,33 @@ void GameScene::loadPixmaps()
     {
         qDebug() << "TilesPixmap is not loaded successfully";
     }
+
+    if(m_heroPixmap.load(Game::PATH_TO_HERO_PIXMAP))
+    {
+        qDebug() << "HeroPixmap is loaded successfully";
+    }
+    else
+    {
+        qDebug() << "HeroPixmap is not loaded successfully";
+    }
+
+    if(m_tilePixmap.load(Game::PATH_TO_TILE_PIXMAP))
+    {
+        qDebug() << "TilePixmap is loaded successfully";
+    }
+    else
+    {
+        qDebug() << "TilePixmap is not loaded successfully";
+    }
+
+    if(m_activeTilePixmap.load(Game::PATH_TO_ACTIVE_TILE_PIXMAP))
+    {
+        qDebug() << "ActiveTilePixmap is loaded successfully";
+    }
+    else
+    {
+        qDebug() << "ActiveTilePixmap is not loaded successfully";
+    }
 }
 
 void GameScene::keyPressEvent(QKeyEvent *event)
@@ -231,20 +258,20 @@ void GameScene::update()
             }
             if (Game::grid[i][j]==1)
             {
-                QGraphicsPixmapItem *pixmapItem = new QGraphicsPixmapItem(m_tilesPixmap.copy(0,0, Game::TILE_SIZE, Game::TILE_SIZE));
+                QGraphicsPixmapItem *pixmapItem = new QGraphicsPixmapItem(m_tilePixmap);
                 pixmapItem->setPos(j*Game::TILE_SIZE, i*Game::TILE_SIZE);
                 addItem(pixmapItem);
             }
             if (Game::grid[i][j] == 2)
             {
-                QGraphicsPixmapItem *pixmapItem = new QGraphicsPixmapItem(m_tilesPixmap.copy(54,0, Game::TILE_SIZE, Game::TILE_SIZE));
+                QGraphicsPixmapItem *pixmapItem = new QGraphicsPixmapItem(m_activeTilePixmap);
                 pixmapItem->setPos(j*Game::TILE_SIZE, i*Game::TILE_SIZE);
                 addItem(pixmapItem);
             }
         }
     }
 
-    QGraphicsPixmapItem *playerItem = new QGraphicsPixmapItem(m_tilesPixmap.copy(36,0, Game::TILE_SIZE, Game::TILE_SIZE));
+    QGraphicsPixmapItem *playerItem = new QGraphicsPixmapItem(m_heroPixmap);
     playerItem->setPos(m_x*Game::TILE_SIZE, m_y*Game::TILE_SIZE);
     addItem(playerItem);
 

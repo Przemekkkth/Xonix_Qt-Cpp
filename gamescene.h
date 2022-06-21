@@ -22,6 +22,7 @@ private:
     void loadPixmaps();
     Game m_game;
     QPixmap m_enemyPixmap, m_gameOverPixmap, m_tilesPixmap;
+    QPixmap m_heroPixmap, m_tilePixmap, m_activeTilePixmap;
 
     int m_enemyCount;
     Enemy m_enemies[10];
