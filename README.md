@@ -17,5 +17,6 @@ Compile
 qmake && make
 ```
 ## Addons
-* [Qt] (https://www.qt.io/) - Cross-Platform software for embedded & desktop
-* [Assets] (https://www.kenney.nl/) - assets
+* [Qt](https://www.qt.io/) - Cross-Platform software for embedded & desktop
+* [Assets](https://www.kenney.nl/) - assets
+* [Play online](https://przemekkkth.github.io/xionix/index.html) - game hosted on GitHub
